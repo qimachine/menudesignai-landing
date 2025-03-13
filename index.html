@@ -5,567 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MenuDesignAI - Transform Restaurant Menus with AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <style>
-        :root {
-            --orange-primary: rgb(238, 133, 79);
-            --orange-secondary: rgb(251, 181, 89);
-            --blue-accent: rgb(28, 71, 122);
-            --dark: #222;
-            --light: #fff;
-            --gray-light: #f5f5f7;
-            --gray: #8888;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--dark);
-            line-height: 1.6;
-            background-color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4, h5 {
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            padding: 20px 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        
-        header.scrolled {
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            padding: 15px 0;
-        }
-        
-        .logo {
-            height: 40px;
-            display: block;
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 50%;
-            background: linear-gradient(135deg, var(--orange-primary), var(--orange-secondary));
-            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
-            z-index: -1;
-            opacity: 0.9;
-        }
-        
-        .hero-content {
-            max-width: 600px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--orange-primary);
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            color: #555;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            background: var(--blue-accent);
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            box-shadow: 0 15px 30px rgba(28, 71, 122, 0.3);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(28, 71, 122, 0.4);
-        }
-        
-        .hero-image {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 50%;
-            z-index: -1;
-        }
-        
-        /* Feature Section */
-        .section {
-            padding: 100px 0;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-            color: #666;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 40px 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--orange-primary), var(--orange-secondary));
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--orange-primary), var(--orange-secondary));
-            color: white;
-        }
-        
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-        
-        /* How it works */
-        .how-it-works {
-            background-color: var(--gray-light);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .steps-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        
-        .steps-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 49px;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--orange-primary), var(--orange-secondary));
-        }
-        
-        .step {
-            display: flex;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        .step:last-child {
-            margin-bottom: 0;
-        }
-        
-        .step-number {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--orange-primary), var(--orange-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            font-weight: bold;
-            margin-right: 40px;
-            flex-shrink: 0;
-            box-shadow: 0 10px 20px rgba(238, 133, 79, 0.3);
-            z-index: 1;
-        }
-        
-        .step-content {
-            padding-top: 10px;
-        }
-        
-        .step-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        .step-content p {
-            color: #555;
-            font-size: 1.1rem;
-        }
-        
-        /* Principles Section */
-        .principles {
-            position: relative;
-        }
-        
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .principle-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .principle-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-        
-        .principle-title {
-            color: var(--blue-accent);
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .principle-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(to right, var(--orange-primary), var(--orange-secondary));
-        }
-        
-        .principle-description {
-            color: #555;
-        }
-        
-        /* Dashboard Preview */
-        .dashboard-preview {
-            background-color: var(--gray-light);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .dashboard-image {
-            margin: 40px auto;
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            transition: all 0.5s ease;
-            transform: perspective(1000px) rotateX(10deg);
-            display: block;
-        }
-        
-        .dashboard-image:hover {
-            transform: perspective(1000px) rotateX(0);
-        }
-        
-        /* Waitlist Section */
-        .waitlist {
-            background: linear-gradient(135deg, var(--blue-accent), #1a365d);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .waitlist-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            z-index: 0;
-        }
-        
-        .waitlist-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .waitlist h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .waitlist p {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-        }
-        
-        .form-container {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-        
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 1rem;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-        }
-        
-        .copyright {
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.6;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 991px) {
-            .hero::before {
-                width: 100%;
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-                opacity: 0.15;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-image {
-                opacity: 0.5;
-                max-width: 90%;
-                right: -20%;
-            }
-            
-            .steps-container::before {
-                left: 39px;
-            }
-            
-            .step-number {
-                width: 80px;
-                height: 80px;
-                font-size: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section {
-                padding: 80px 0;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .steps-container {
-                padding-left: 20px;
-            }
-            
-            .steps-container::before {
-                left: 29px;
-            }
-            
-            .step {
-                flex-direction: column;
-            }
-            
-            .step-number {
-                width: 60px;
-                height: 60px;
-                font-size: 1.2rem;
-                margin-bottom: 20px;
-                margin-right: 0;
-            }
-            
-            .step-content {
-                padding-top: 0;
-                padding-left: 0;
-            }
-            
-            .step-content h3 {
-                font-size: 1.5rem;
-            }
-        }
-        
-        /* Animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .fade-up.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .animate-delay-1 {
-            transition-delay: 0.1s;
-        }
-        
-        .animate-delay-2 {
-            transition-delay: 0.2s;
-        }
-        
-        .animate-delay-3 {
-            transition-delay: 0.3s;
-        }
-        
-        /* Floating animation */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-        
-        .float {
-            animation: float 4s ease-in-out infinite;
-        }
-        
-        /* Logo for orange gradient text */
-        .logo-text {
-            background-image: linear-gradient(to right, var(--orange-primary), var(--orange-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css" />
+    
 </head>
 <body>
-    <header id="navbar">
-        <div class="container">
-            <img src="./images/logo.png" alt="MenuDesignAI Logo" class="logo">
-        </div>
-    </header>
-    
     <section class="hero">
+      <div class="hero-decoration"></div>
+      <div class="hero-container">
+          <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+              <img src="./images/logo.png" alt="MenuDesignAI Logo" class="logo">
+              <h1>Redesign Your Restaurant Menu.<br><span>Maximize Your Profits.</span></h1>
+              <p>Our AI engine analyzes your menu data and applies proven menu engineering principles to create data-driven designs that increase restaurant profits by up to 20%.</p>
+              <a href="#waitlist" class="cta-btn">Join Exclusive Waitlist</a>
+          </div>
+      </div>
+    </section>
+
+    <!-- Add this new section after the hero section -->
+    <section class="section screenshots">
         <div class="container">
-            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-                <h1>Redesign Your Menu.<br><span>Maximize Your Profits.</span></h1>
-                <p>Our AI engine analyzes your menu data and applies proven menu engineering principles to create data-driven designs that increase profits by up to 20%.</p>
-                <a href="#waitlist" class="cta-btn">Join Exclusive Waitlist</a>
+            <h2 class="section-title" data-aos="fade-up">See It In Action</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Input your menu data and get optimized designs</p>
+            
+            <div class="screenshots-container">
+                <div class="screenshot-wrapper" data-aos="fade-up" data-aos-delay="200">
+                    <img src="./images/screenshots/menu-input.png" alt="Menu Input Interface" class="screenshot-image">
+                    <div class="screenshot-caption">Menu Input</div>
+                </div>
+                <div class="screenshot-wrapper" data-aos="fade-up" data-aos-delay="300">
+                    <img src="./images/screenshots/menu-output.png" alt="Menu Optimization Results" class="screenshot-image screenshot-large">
+                    <div class="screenshot-caption">Menu Recommendations</div>
+                </div>
             </div>
-            <img src="/api/placeholder/700/500" alt="MenuDesignAI Dashboard" class="hero-image" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
         </div>
     </section>
     
@@ -576,19 +47,37 @@
             
             <div class="features-grid">
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                            <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                            <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
                     <h3 class="feature-title">Data-Driven Design</h3>
                     <p>Our algorithms analyze item performance, costs, and profitability to create the optimal menu layout based on actual data.</p>
                 </div>
                 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">💰</div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
                     <h3 class="feature-title">Profit Maximization</h3>
                     <p>Strategic item placement and category organization can increase high-margin item sales by up to 30%.</p>
                 </div>
                 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                    </div>
                     <h3 class="feature-title">Instant Results</h3>
                     <p>What would take a consultant days to create, our AI does in minutes, giving you a professionally engineered menu instantly.</p>
                 </div>
@@ -700,10 +189,7 @@
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Contact</a>
+                <a href="mailto:info@qimachine.com">Contact</a>
             </div>
             <p class="copyright">© 2025 MenuDesignAI. All rights reserved.</p>
         </div>
@@ -717,16 +203,6 @@
                 duration: 800,
                 easing: 'ease-in-out',
                 once: true
-            });
-            
-            // Navbar scroll effect
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
             });
             
             // Smooth scroll for anchor links
