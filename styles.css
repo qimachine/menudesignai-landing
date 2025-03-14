@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .hero {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 90px;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -88,7 +88,7 @@ h1, h2, h3, h4, h5 {
 .screenshot-large {
   height: auto;
   /* This will make it twice as tall proportionally */
-  max-height: 600px;
+  max-height: 1700px;
   object-fit: contain;
 }
 
@@ -99,16 +99,20 @@ h1, h2, h3, h4, h5 {
 
 .screenshot-caption {
   text-align: center;
-  font-size: 1.2rem;
-  margin-top: 15px;
+  font-size: 1.1rem;
+  margin-top: 35px;
+  margin-bottom: 25px;
   color: var(--blue-accent);
   font-weight: 500;
 }
 
 .logo {
   height: 100px;
-  margin-bottom: 30px;
+  margin-bottom: 39px;
   display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero h1 {
@@ -419,7 +423,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* Dashboard Preview */
-.dashboard-preview {
+/* .dashboard-preview {
   background-color: var(--gray-light);
   overflow: hidden;
   position: relative;
@@ -437,7 +441,7 @@ h1, h2, h3, h4, h5 {
 
 .dashboard-image:hover {
   transform: perspective(1000px) rotateX(0);
-}
+} */
 
 /* Waitlist Section */
 .waitlist {
@@ -515,6 +519,7 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.6;
+  margin-bottom: 4rem;
 }
 
 @media (max-width: 1024px) {
